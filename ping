@@ -1,0 +1,18 @@
+# pingar vários hosts na rede
+# ping -c verifica se os comandos são válidos;
+# Para adicionar uma saída mais detalhada com o tempo de resposta e pacotes perdidos,você pode usar as opções "-q" (quiet output) e "-w" (timeout) do comando ping
+# A opção "-q" desativa a saída padrão, e a opção "-w 1" especifica um timeout de 1 segundo para o ping. Isso fará com que o ping seja enviado apenas uma vez e o tempo de resposta e pacotes perdidos sejam exibidos no log.
+# Adicionando a opção -s (tamanho do pacote) para monitorar o tamanho de pacote que você esta enviando e -a (audible ping) para ouvir o som quando o pacote retornar.
+
+#!/bin/bash
+
+hosts=("host1" "host2" "host3")
+logfile=/tmp/ping.log
+
+for host in "${hosts[@]}"
+do
+    ping -c 1 -q -w 1 -s 56 -a $host | tee -a $logfile
+    sleep 5
+done
+
+
